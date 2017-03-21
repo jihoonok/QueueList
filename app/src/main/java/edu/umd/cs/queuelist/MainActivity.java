@@ -1,12 +1,13 @@
 package edu.umd.cs.queuelist;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import android.support.v4.app.Fragment;
+
+public class MainActivity extends SingleFragmentActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected Fragment createFragment() {
+        return MainFragment.newInstance();
     }
 }
