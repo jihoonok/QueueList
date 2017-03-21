@@ -1,4 +1,7 @@
 # QueueList
+
+ONLY UPDATE THE APP FOLDER, DONT UPLOAD ANY OTHER FOLDERS, this will mess up the push/pull calls
+
 CMSC436
 An application that organizes the office hours by implementing a queue in which students can use, and TAs can access. 
 
