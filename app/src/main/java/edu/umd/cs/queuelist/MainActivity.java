@@ -8,7 +8,7 @@ public class MainActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        int fuck = 0;
+        int fuck = 1;
         return MainFragment.newInstance();
     }
 }
