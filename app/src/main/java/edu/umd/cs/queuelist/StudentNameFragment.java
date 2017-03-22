@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 public class StudentNameFragment extends android.support.v4.app.Fragment {
     private View view;
+    int a;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
