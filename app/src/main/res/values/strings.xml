@@ -4,5 +4,26 @@
     <string name="getting_started">Click which one you are to get started</string>
     <string name="students">Students</string>
     <string name="instructors">Instructors</string>
-
+    <string name="student_name_label">Student Name</string>
+    <string name="student_name_hint">Enter your name here</string>
+    <string name="user_id_label">User ID</string>
+    <string name="user_id_hint">Enter your user id here</string>
+    <string name="class_label">Class</string>
+    <string name="assignment_label">Assigment</string>
+    <string name="problem_label">Problem</string>
+    <string name="problem_hint">Please state the reason why you want to see a TA</string>
+    <string name="check_in_button">Check-in</string>
+    <string name="cancel_button">Cancel</string>
+    <string-array name="class_array">
+        <item>None</item>
+        <item>CMSC131</item>
+        <item>CMSC132</item>
+        <item>CMSC216</item>
+    </string-array>
+    <string-array name="assignment_array">
+        <item>None</item>
+        <item>Project1</item>
+        <item>Project2</item>
+        <item>Project3</item>
+    </string-array>
 </resources>
