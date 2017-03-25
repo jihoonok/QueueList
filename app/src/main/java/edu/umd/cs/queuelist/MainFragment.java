@@ -2,6 +2,7 @@ package edu.umd.cs.queuelist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ public class MainFragment extends android.support.v4.app.Fragment {
     private Button studentButton;
     private Button instructorButton;
     private View view;
+    private final String TAG = getClass().getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,8 @@ public class MainFragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View v1) {
-                Intent intent = new Intent(getActivity(), StudentNameActivity.class);
+                Intent intent = new Intent(getActivity(), StudentQueueActivity.class);
+                Log.d(TAG, "call 1");
                 startActivity(intent);
             }
         });

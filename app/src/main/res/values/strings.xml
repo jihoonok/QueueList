@@ -13,7 +13,7 @@
     <string name="problem_label">Problem</string>
     <string name="problem_hint">Please state the reason why you want to see a TA</string>
     <string name="check_in_button">Check-in</string>
-    <string name="cancel_button"></string>
+    <string name="cancel_button">Cancel</string>
     <string-array name="class_array">
         <item>None</item>
         <item>CMSC131</item>
