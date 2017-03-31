@@ -26,4 +26,10 @@
         <item>Project2</item>
         <item>Project3</item>
     </string-array>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="submit">Submit</string>
+    <string name="next">Next Student</string>
+    <string name="next_student">Click next student button to get the next student that needs help</string>
 </resources>

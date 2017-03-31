@@ -20,6 +20,7 @@
         <activity android:name=".StudentNameActivity"></activity>
         <activity android:name=".StudentQueueActivity"></activity>
         <activity android:name=".InstructorLoginActivity"></activity>
+        <activity android:name=".InstructorViewActivity"></activity>
     </application>
 
 </manifest>

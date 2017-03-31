@@ -9,6 +9,6 @@ import android.support.v4.app.Fragment;
 public class InstructorLoginActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
-        return null;
+        return InstructorLoginFragment.newInstance();
     }
 }
