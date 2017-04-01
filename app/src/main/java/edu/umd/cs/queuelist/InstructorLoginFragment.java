@@ -56,16 +56,19 @@ public class InstructorLoginFragment extends android.support.v4.app.Fragment {
                 if (classCode.equals("CMSC131")) {
                     if (user.equals("CMSC131") && pass.equals("sprcoredump")) {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
+                        intent.putExtra("Course", "CMSC131");
                         startActivity(intent);
                     }
                 } else if (classCode.equals("CMSC132")) {
                     if (user.equals("CMSC132") && pass.equals("sprcoredump")) {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
+                        intent.putExtra("Course", "CMSC132");
                         startActivity(intent);
                     }
                 } else if (classCode.equals("CMSC216")) {
                     if (user.equals("CMSC216") && pass.equals("sprcoredump")) {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
+                        intent.putExtra("Course", "CMSC216");
                         startActivity(intent);
                     }
                 }
