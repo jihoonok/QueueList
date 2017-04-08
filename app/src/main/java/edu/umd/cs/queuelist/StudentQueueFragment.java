@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -136,6 +137,25 @@ public class StudentQueueFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_studentqueue, container, false);
         recycle = (RecyclerView)view.findViewById(R.id.student_recycler_view);
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (recyclerView.SCROLL_STATE_DRAGGING == newState) {
+                    if (newState == 1) {
+                        Log.d("hello", "scrolling down");
+                        updateUI();
+                    }
+                }
+            }
+        });
+
         return view;
     }
 
