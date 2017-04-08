@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * Created by jihoonok on 3/21/17.
@@ -58,19 +59,31 @@ public class InstructorLoginFragment extends android.support.v4.app.Fragment {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
                         intent.putExtra("Course", "CMSC131");
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect login information",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } else if (classCode.equals("CMSC132")) {
                     if (user.equals("CMSC132") && pass.equals("sprcoredump")) {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
                         intent.putExtra("Course", "CMSC132");
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect login information",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } else if (classCode.equals("CMSC216")) {
                     if (user.equals("CMSC216") && pass.equals("sprcoredump")) {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
                         intent.putExtra("Course", "CMSC216");
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect login information",
+                                Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(getActivity(), "Incorrect login information",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
