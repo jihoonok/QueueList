@@ -21,9 +21,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by jihoonok on 3/30/17.
@@ -31,7 +35,11 @@ import java.net.URL;
 
 public class InstructorViewFragment extends android.support.v4.app.Fragment {
     private Button nextStudent;
+    private Button AddStudent;
+    private Button viewQueue;
     private TextView studentInfo;
+    private TextView studentAssignment;
+    private TextView studentProblem;
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
     private String course;
@@ -54,7 +62,11 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
         Log.d("Debug", course);
 
         studentInfo = (TextView) view.findViewById(R.id.student);
+        studentProblem = (TextView) view.findViewById(R.id.problem);
+        studentAssignment = (TextView) view.findViewById(R.id.assignment);
         nextStudent = (Button) view.findViewById(R.id.next);
+        AddStudent = (Button) view.findViewById(R.id.add_student);
+        viewQueue = (Button) view.findViewById(R.id.viewQueue);
 
         nextStudent.setOnClickListener(new View.OnClickListener() {
 
@@ -67,6 +79,29 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
                 transaction.replace(R.id.fragment_instructorview, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+            }
+        });
+
+        AddStudent.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                new insertStudent().execute(studentInfo.getText().toString(),course,studentAssignment.getText().toString(),studentProblem.getText().toString());
+                new DequeueStudent().execute(course);
+                Fragment fragment = new Fragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_instructorview, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        viewQueue.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -88,7 +123,7 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL("http://10.0.2.2/QueueList/Deque.php");
+                url = new URL("http://www.taterpqueue.xyz/Deque.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -176,8 +211,113 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
                 Log.d("Debug", result);
                 Log.d("Debug", "onPostExecute: U");
             }else{
-                studentInfo.setText(result);
+
+                String[] stuff = result.split(",");
+                studentInfo.setText(stuff[0]);
+                studentAssignment.setText(stuff[1]);
+                studentProblem.setText(stuff[2]);
+            }
+
+            }
+
+        }
+
+    private class insertStudent extends AsyncTask<String, String, String> {
+        HttpURLConnection conn;
+        URL url = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d("Debug", "About to begin");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            URL url;
+            String response = "";
+            HashMap<String,String> postDataParams = new HashMap<String,String>();
+            postDataParams.put("course", params[1]);
+            postDataParams.put("name",params[0]);
+            postDataParams.put("assignment", params[2]);
+            postDataParams.put("problem",params[3]);
+
+            try {
+                url = new URL("http://www.taterpqueue.xyz/insertStudent.php");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+                int responseCode=conn.getResponseCode();
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line=br.readLine()) != null) {
+                        response+=line;
+                    }
+                }
+                else {
+                    response="No way";
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return response;
+        }
+
+        private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+            for(Map.Entry<String, String> entry : params.entrySet()){
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            }
+
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(result.equalsIgnoreCase("Inserted successfully")){
                 Log.d("Debug", "onPostExecute: S");
+            }else{
+                Log.d("Debug", result);
+                Log.d("Debug", "onPostExecute: U");
+            }
+
+        }
+
+        private String readStream(InputStream out){
+            String output = "Hello world";
+            try {
+                out.read();
+                out.close();
+                return "Read success";
+            }catch (IOException e) {
+                Log.d("Debug", "readStream");
+                return "Read unsuccess";
             }
 
         }
@@ -185,3 +325,7 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
     }
 
 }
+
+
+
+
