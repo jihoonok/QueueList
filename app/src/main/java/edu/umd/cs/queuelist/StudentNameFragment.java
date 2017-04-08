@@ -1,7 +1,6 @@
 package edu.umd.cs.queuelist;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,9 +19,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.umd.cs.queuelist.model.Student;
 import edu.umd.cs.queuelist.service.StudentService;
@@ -44,6 +46,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
     private EditText name, userid, problem;
     private StudentService stuser;
     private String course;
+    private String assignment;
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
 
@@ -98,25 +101,44 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
                 student.setUserId(userid_string);
                 student.setProblem(problem_string);
                 student.setClassCode(classSpinner.getSelectedItemPosition());
+                student.setAssignment(assignmentSpinner.getSelectedItemPosition());
 
                 switch (classSpinner.getSelectedItemPosition()) {
                     case 0:
                         course = "None";
                         break;
                     case 1:
-                        course = "CMSC131";
+                        course = "cmsc131";
                         break;
                     case 2:
-                        course = "CMSC132";
+                        course = "cmsc132";
                         break;
                     case 3:
-                        course = "CMSC216";
+                        course = "cmsc216";
                         break;
                     default:
                         break;
                 }
 
-                new insertStudent().execute(name_string, course);
+                switch (assignmentSpinner.getSelectedItemPosition()) {
+                    case 0:
+                        assignment = "None";
+                        break;
+                    case 1:
+                        assignment = "Project 1";
+                        break;
+                    case 2:
+                        assignment = "Project 2";
+                        break;
+                    case 3:
+                        assignment = "Project 3";
+                        break;
+                    default:
+                        break;
+                }
+
+
+                new insertStudent().execute(name_string, course, assignment, problem_string);
                 //Log.d(TAG, aStory.getId());
                 intent2.putExtra(EXTRA_STUDENT_CREATED, student);
                 getActivity().setResult(RESULT_OK, intent2);
@@ -139,87 +161,68 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            try {
-
-                // Enter URL address where your php file resides
-                url = new URL("http://10.0.2.2/QueueList/insertStudent.php");
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return "exceptionURL";
-            }
+            URL url;
+            String response = "";
+            HashMap<String,String> postDataParams = new HashMap<String,String>();
+            postDataParams.put("course", params[1]);
+            postDataParams.put("name",params[0]);
+            postDataParams.put("assignment", params[2]);
+            postDataParams.put("problem",params[3]);
 
             try {
-                // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
-                conn.setReadTimeout(READ_TIMEOUT);
-                conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                url = new URL("http://www.taterpqueue.xyz/insertStudent.php");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
-
-                // setDoInput and setDoOutput method depict handling of both send and receive
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
 
-                // Append parameters to URL
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("name", params[0])
-                        .appendQueryParameter("course", params[1]);
-                String query = builder.build().getEncodedQuery();
 
-                // Open connection for sending data
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
+                writer.write(getPostDataString(postDataParams));
+
                 writer.flush();
                 writer.close();
                 os.close();
-                conn.connect();
+                int responseCode=conn.getResponseCode();
 
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-                return "exceptionConnection";
-            }
-
-            try {
-
-                int response_code = conn.getResponseCode();
-                Log.d("debug", ""+response_code);
-
-                // Check if successful connection made
-                if (response_code == HttpURLConnection.HTTP_OK) {
-
-                    // Read data sent from server
-                    InputStream input = conn.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                    StringBuilder result = new StringBuilder();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
                     String line;
-
-                    while ((line = reader.readLine()) != null) {
-                        result.append(line);
+                    BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line=br.readLine()) != null) {
+                        response+=line;
                     }
-
-                    // Pass data to onPostExecute method
-                    Log.d("Debug", result.toString());
-                    return(result.toString());
-
-
-                }else{
-                    Log.d("Debug", "onPost Not Success: ");
-                    return("unsuccessful");
                 }
+                else {
+                    response="No way";
 
-            } catch (IOException e) {
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
-                return "exceptionResponse";
-            } finally {
-                Log.d("Debug", "disconnect: ");
-                conn.disconnect();
             }
 
+            return response;
+        }
 
+        private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+            for(Map.Entry<String, String> entry : params.entrySet()){
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            }
+
+            return result.toString();
         }
 
         @Override
@@ -229,6 +232,19 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
             }else{
                 Log.d("Debug", result);
                 Log.d("Debug", "onPostExecute: U");
+            }
+
+        }
+
+        private String readStream(InputStream out){
+            String output = "Hello world";
+            try {
+                out.read();
+                out.close();
+                return "Read success";
+            }catch (IOException e) {
+                Log.d("Debug", "readStream");
+                return "Read unsuccess";
             }
 
         }

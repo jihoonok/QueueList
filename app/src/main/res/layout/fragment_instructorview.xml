@@ -7,8 +7,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="300dp"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/student"
         android:layout_above="@+id/next"
         android:text="@string/next_student"
