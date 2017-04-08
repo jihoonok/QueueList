@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +33,7 @@ import java.util.Map;
  * Created by jihoonok on 3/30/17.
  */
 
-public class InstructorViewFragment extends android.support.v4.app.Fragment {
+public class InstructorViewFragment extends Fragment {
     private Button nextStudent;
     private Button AddStudent;
     private Button viewQueue;
@@ -98,7 +101,8 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View view) {
-
+                Intent intent3 = new Intent(getActivity().getApplicationContext(), InstructorQueueActivity.class);
+                startActivity(intent3);
             }
         });
 
