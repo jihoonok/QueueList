@@ -10,8 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import edu.umd.cs.queuelist.model.Student;
@@ -50,17 +48,16 @@ public class InMemoryStudentService implements StudentService {
     }
 
     public List<Student> getAllStudents() {
-        List<Student> prioritizedStudents = new ArrayList<Student>(students);
-
-        Collections.sort(prioritizedStudents, new Comparator<Student>() {
-            @Override
-            public int compare(Student student1, Student student2) {
-                return student1.getTimeCreated().compareTo(student2.getTimeCreated());
-            }
-        });
-
+        students = new ArrayList<Student>();
         new getStudent().execute();
-        return prioritizedStudents;
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return students;
     }
 
     private class getStudent extends AsyncTask<String, String, String> {
@@ -103,7 +100,10 @@ public class InMemoryStudentService implements StudentService {
                 e.printStackTrace();
             }
 
+            Log.d("Debug", "List");
+            putStudent(response);
             return response;
+
         }
 
 
@@ -116,6 +116,36 @@ public class InMemoryStudentService implements StudentService {
                 Log.d("Debug", "onPostExecute: S");
             }
 
+        }
+
+        protected void putStudent(String result){
+            String[] words = result.split("&");
+            Log.d("Debug", words.length+"");
+            int track = 0;
+            List<Student> tempList = new ArrayList<Student>();
+            String studentName = "", assignment = "", problem = "";
+            for (String word : words) {
+                Student student = new Student();
+                String[] stuff = word.split(",");
+
+                studentName = stuff[0];
+                assignment = stuff[1];
+                problem = stuff[2];
+
+                if (assignment.equalsIgnoreCase("Project 1"))
+                    student.setAssignment(1);
+                else if (assignment.equalsIgnoreCase("Project 2"))
+                    student.setAssignment(2);
+                else if (assignment.equalsIgnoreCase("Project 3"))
+                    student.setAssignment(3);
+                student.setName(studentName);
+                student.setProblem(problem);
+                student.setUserId("dennis");
+                tempList.add(student);
+            }
+
+            students = tempList;
+            Log.d("Debug", students.toString());
         }
 
 
