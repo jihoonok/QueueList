@@ -80,6 +80,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
                 student.setName(name_string);
                 student.setUserId(userid_string);
                 student.setProblem(problem_string);
+                student.setAssignment(assignmentSpinner.getSelectedItemPosition());
                 student.setClassCode(classSpinner.getSelectedItemPosition());
                 //Log.d(TAG, aStory.getId());
                 intent2.putExtra(EXTRA_STUDENT_CREATED, student);
