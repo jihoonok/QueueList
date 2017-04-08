@@ -7,9 +7,12 @@ package edu.umd.cs.queuelist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,11 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import java.util.List;
-
 
 import edu.umd.cs.queuelist.model.Student;
 import edu.umd.cs.queuelist.service.StudentService;
@@ -36,6 +36,7 @@ public class StudentQueueFragment extends Fragment {
     private StudentService stuser;
     private View view;
     private RecyclerView recycle;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private StudentAdapter studentA;
     private final String TAG = getClass().getSimpleName();
 
@@ -127,6 +128,14 @@ public class StudentQueueFragment extends Fragment {
                 startActivityForResult(intent3, REQUEST_CODE_CREATE_STORY);
                 onActivityResult(REQUEST_CODE_CREATE_STORY, resultCode, intent3);
                 return true;
+            case R.id.menu_item_refresh:
+                Fragment fragment = new Fragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.student_recycler_view, fragment);
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                transaction.addToBackStack(null);
+                transaction.commit();
             default:
                 return super.onOptionsItemSelected(menuitem);
         }
@@ -136,11 +145,58 @@ public class StudentQueueFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         view = inflater.inflate(R.layout.fragment_studentqueue, container, false);
+
+//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+//        swipeRefreshLayout.setColorSchemeResources(R.color.orange, R.color.blue, R.color.green);
+//        Log.d("hello", "refreshlayout");
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.d("hello", "onRefresh?");
+//                        refresh();
+//                        studentA.notifyDataSetChanged();
+//                    }
+//
+//                    //refresh();
+//                }, 2500);
+//            }
+//        });
+
         recycle = (RecyclerView)view.findViewById(R.id.student_recycler_view);
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
         return view;
     }
+
+//    private void refresh() {
+//        Log.d("hello", "refresh");
+//        swipeRefreshLayout.setRefreshing(true);
+//        updateUI();
+//        swipeRefreshLayout.setRefreshing(false);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        swipeRefreshLayout.setRefreshing(false);
+//                    }
+//                });
+//            }
+//        }).start();
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
