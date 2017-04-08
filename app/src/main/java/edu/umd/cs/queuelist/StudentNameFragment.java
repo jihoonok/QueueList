@@ -73,14 +73,24 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
         problem = (EditText)view.findViewById(R.id.problem);
         checkInButton = (Button)view.findViewById(R.id.check_in_button);
         cancelButton = (Button)view.findViewById(R.id.cancel_button);
+
+
         ArrayAdapter<CharSequence> classAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.class_array, android.R.layout.simple_spinner_item);
         classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         classSpinner.setAdapter(classAdapter);
-        ArrayAdapter<CharSequence> assignmentAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.assignment_array, android.R.layout.simple_spinner_item);
+
+        String projects[] = {"Project 1", "Project 2", "Project 3"};
+
+
+        ArrayAdapter<String> assignmentAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, projects);
         assignmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assignmentSpinner.setAdapter(assignmentAdapter);
+//        ArrayAdapter<CharSequence> assignmentAdapter = ArrayAdapter.createFromResource(getActivity(),
+//                R.array.assignment_array, android.R.layout.simple_spinner_item);
+//        assignmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        assignmentSpinner.setAdapter(assignmentAdapter);
+
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view1) {
@@ -120,22 +130,24 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
                         break;
                 }
 
-                switch (assignmentSpinner.getSelectedItemPosition()) {
-                    case 0:
-                        assignment = "None";
-                        break;
-                    case 1:
-                        assignment = "Project 1";
-                        break;
-                    case 2:
-                        assignment = "Project 2";
-                        break;
-                    case 3:
-                        assignment = "Project 3";
-                        break;
-                    default:
-                        break;
-                }
+
+                assignment = assignmentSpinner.getSelectedItem().toString();
+//                switch (assignmentSpinner.getSelectedItemPosition()) {
+//                    case 0:
+//                        assignment = "None";
+//                        break;
+//                    case 1:
+//                        assignment = "Project 1";
+//                        break;
+//                    case 2:
+//                        assignment = "Project 2";
+//                        break;
+//                    case 3:
+//                        assignment = "Project 3";
+//                        break;
+//                    default:
+//                        break;
+//                }
 
 
                 new insertStudent().execute(name_string, course, assignment, problem_string);

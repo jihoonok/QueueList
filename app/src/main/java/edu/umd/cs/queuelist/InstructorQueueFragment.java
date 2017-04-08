@@ -1,10 +1,5 @@
 package edu.umd.cs.queuelist;
 
-
-/**
- * Created by khanhnguyen on 3/24/17.
- */
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,9 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,8 +18,11 @@ import edu.umd.cs.queuelist.service.StudentService;
 
 import static android.app.Activity.RESULT_OK;
 
-public class StudentQueueFragment extends Fragment {
+/**
+ * Created by khanhnguyen on 4/8/17.
+ */
 
+public class InstructorQueueFragment extends Fragment {
 
     private final int REQUEST_CODE_CREATE_STORY = 2;
     private int resultCode;
@@ -111,24 +106,6 @@ public class StudentQueueFragment extends Fragment {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater menuinflate) {
-        super.onCreateOptionsMenu(menu, menuinflate);
-        menuinflate.inflate(R.menu.fragment_studentqueue, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuitem) {
-        switch(menuitem.getItemId()) {
-            case R.id.menu_item_create_student:
-                Intent intent3 = new Intent(getActivity().getApplicationContext(), StudentNameActivity.class);
-                startActivityForResult(intent3, REQUEST_CODE_CREATE_STORY);
-                onActivityResult(REQUEST_CODE_CREATE_STORY, resultCode, intent3);
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuitem);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -151,12 +128,10 @@ public class StudentQueueFragment extends Fragment {
                     if (newState == 1) {
                         Log.d("hello", "scrolling down");
                         updateUI();
-                        Log.d("hello", "kappa");
                     }
                 }
             }
         });
-        updateUI();
 
         return view;
     }
@@ -187,5 +162,4 @@ public class StudentQueueFragment extends Fragment {
             studentA.notifyDataSetChanged();
         }
     }
-
 }
