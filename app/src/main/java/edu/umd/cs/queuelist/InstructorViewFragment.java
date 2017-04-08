@@ -85,12 +85,12 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
             public void onClick(View view) {
                 new insertStudent().execute(studentInfo.getText().toString(),course,studentAssignment.getText().toString(),studentProblem.getText().toString());
                 new DequeueStudent().execute(course);
-                Fragment fragment = new Fragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_instructorview, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+               // Fragment fragment = new Fragment();
+                //FragmentManager fragmentManager = getFragmentManager();
+                //FragmentTransaction transaction = fragmentManager.beginTransaction();
+                //transaction.replace(R.id.fragment_instructorview, fragment);
+                //transaction.addToBackStack(null);
+                //transaction.commit();
             }
         });
 
