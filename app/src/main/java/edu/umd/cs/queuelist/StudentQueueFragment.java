@@ -151,10 +151,12 @@ public class StudentQueueFragment extends Fragment {
                     if (newState == 1) {
                         Log.d("hello", "scrolling down");
                         updateUI();
+                        Log.d("hello", "kappa");
                     }
                 }
             }
         });
+        updateUI();
 
         return view;
     }
