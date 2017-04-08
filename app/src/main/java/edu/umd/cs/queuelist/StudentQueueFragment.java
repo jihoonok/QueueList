@@ -7,9 +7,9 @@ package edu.umd.cs.queuelist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,11 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import java.util.List;
-
 
 import edu.umd.cs.queuelist.model.Student;
 import edu.umd.cs.queuelist.service.StudentService;
@@ -147,8 +144,8 @@ public class StudentQueueFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CODE_CREATE_STORY) {
-                Student aStudent = (Student)data.getSerializableExtra(StudentNameFragment.EXTRA_STUDENT_CREATED);
-                stuser.addStudentToQueue(aStudent);
+                //Student aStudent = (Student)data.getSerializableExtra(StudentNameFragment.EXTRA_STUDENT_CREATED);
+                //stuser.addStudentToQueue(aStudent);
                 updateUI();
             }
         }
