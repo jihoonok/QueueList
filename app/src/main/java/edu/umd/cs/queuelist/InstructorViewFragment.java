@@ -5,8 +5,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,12 +86,6 @@ public class InstructorViewFragment extends Fragment {
             public void onClick(View view) {
                 new insertStudent().execute(studentInfo.getText().toString(),course,studentAssignment.getText().toString(),studentProblem.getText().toString());
                 new DequeueStudent().execute(course);
-                Fragment fragment = new Fragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_instructorview, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
             }
         });
 

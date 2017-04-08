@@ -156,7 +156,7 @@ public class StudentQueueFragment extends Fragment {
                 }
             }
         });
-        updateUI();
+        //updateUI();
 
         return view;
     }
