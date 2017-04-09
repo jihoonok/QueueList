@@ -1,94 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_instructorview"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="800px"
+        android:background="@drawable/umd"
+        android:alpha="0.2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student's Name"
-        android:layout_marginTop="37dp"
-        android:layout_marginBottom="15dp"
-        android:id="@+id/textView5"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/next" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_instructorview"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Assignment"
-        android:layout_marginEnd="12dp"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/student"
-        android:layout_alignEnd="@+id/textView5" />
+        <TextView
+            android:gravity="center"
+            android:textSize="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student's Name"
+            android:id="@+id/textView5" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/student"
-        android:text="@string/next_student"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="15dp"/>
+        <TextView
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/student"
+            android:text="@string/next_student" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/assignment"
-        android:text="Click Next Student to see Assignment"
-        android:layout_below="@+id/textView6"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="54dp"
-        android:layout_marginTop="20dp" />
+        <TextView
+            android:gravity="center"
+            android:textSize="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assignment"
+            android:id="@+id/textView6"
+            android:layout_below="@+id/student"
+            android:layout_alignEnd="@+id/textView5" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Problem"
-        android:layout_marginTop="30dp"
-        android:id="@+id/textView7"
-        android:layout_below="@+id/assignment"
-        android:layout_alignEnd="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/problem"
-        android:text="Click Next Student to see Problem"
-        android:layout_below="@+id/textView7"
-        android:layout_alignEnd="@+id/assignment"
-        android:layout_marginTop="27dp" />
+        <TextView
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/assignment"
+            android:text="Click Next Student to see Assignment" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Student"
-        android:layout_alignBaseline="@+id/next"
-        android:layout_alignBottom="@+id/next"
-        android:layout_toEndOf="@+id/next"
-        android:id="@+id/add_student" />
+        <TextView
+            android:gravity="center"
+            android:textSize="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Problem"
+            android:id="@+id/textView7" />
 
-    <Button
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next"
-        android:layout_below="@+id/problem"
-        android:layout_alignStart="@+id/problem"
-        android:layout_marginTop="35dp" />
+        <TextView
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/problem"
+            android:text="Click Next Student to see Problem" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Queue"
-        android:layout_below="@+id/add_student"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
-        android:id="@+id/viewQueue" />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Student"
+            android:id="@+id/add_student" />
 
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Queue"
+            android:id="@+id/viewQueue" />
+
+    </LinearLayout>
 </RelativeLayout>

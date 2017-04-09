@@ -79,8 +79,8 @@ public class InMemoryStudentService implements StudentService {
                 url = new URL("http://www.taterpqueue.xyz/StudentList.php");
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(30000);
-                conn.setConnectTimeout(30000);
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
                 conn.setDoInput(true);
 
                 int responseCode=conn.getResponseCode();
@@ -101,7 +101,9 @@ public class InMemoryStudentService implements StudentService {
             }
 
             Log.d("Debug", "List");
-            putStudent(response);
+            if (!response.equalsIgnoreCase("0 results")) {
+                putStudent(response);
+            }
             return response;
 
         }
