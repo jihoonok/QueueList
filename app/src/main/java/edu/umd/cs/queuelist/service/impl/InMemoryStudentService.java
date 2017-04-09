@@ -24,6 +24,7 @@ public class InMemoryStudentService implements StudentService {
         this.students = new ArrayList<Student>();
     }
 
+
     public void addStudentToQueue(Student student) {
         Student currStudent = getStudentById(student.getUserId());
         if (currStudent == null) {
@@ -101,7 +102,7 @@ public class InMemoryStudentService implements StudentService {
             }
 
             Log.d("Debug", "List");
-            if (!response.equalsIgnoreCase("0 results")) {
+            if (!response.equalsIgnoreCase("0 result")) {
                 putStudent(response);
             }
             return response;
@@ -130,20 +131,23 @@ public class InMemoryStudentService implements StudentService {
                 Student student = new Student();
                 String[] stuff = word.split(",");
 
-                studentName = stuff[0];
-                assignment = stuff[1];
-                problem = stuff[2];
+                if (stuff.length > 0 && stuff.length % 3 == 0) {
+                    studentName = stuff[0];
+                    assignment = stuff[1];
+                    problem = stuff[2];
 
-                if (assignment.equalsIgnoreCase("Project 1"))
-                    student.setAssignment(1);
-                else if (assignment.equalsIgnoreCase("Project 2"))
-                    student.setAssignment(2);
-                else if (assignment.equalsIgnoreCase("Project 3"))
-                    student.setAssignment(3);
-                student.setName(studentName);
-                student.setProblem(problem);
-                student.setUserId("dennis");
-                tempList.add(student);
+
+                    if (assignment.equalsIgnoreCase("Project 1"))
+                        student.setAssignment(1);
+                    else if (assignment.equalsIgnoreCase("Project 2"))
+                        student.setAssignment(2);
+                    else if (assignment.equalsIgnoreCase("Project 3"))
+                        student.setAssignment(3);
+                    student.setName(studentName);
+                    student.setProblem(problem);
+                    student.setUserId("dennis");
+                    tempList.add(student);
+                }
             }
 
             students = tempList;

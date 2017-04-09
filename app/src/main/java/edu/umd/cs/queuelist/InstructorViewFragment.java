@@ -206,9 +206,11 @@ public class InstructorViewFragment extends Fragment {
             }else{
 
                 String[] stuff = result.split(",");
-                studentInfo.setText(stuff[0]);
-                studentAssignment.setText(stuff[1]);
-                studentProblem.setText(stuff[2]);
+                if (stuff.length > 0) {
+                    studentInfo.setText(stuff[0]);
+                    studentAssignment.setText(stuff[1]);
+                    studentProblem.setText(stuff[2]);
+                }
             }
 
             }

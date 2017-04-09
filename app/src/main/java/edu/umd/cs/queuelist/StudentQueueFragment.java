@@ -125,6 +125,9 @@ public class StudentQueueFragment extends Fragment {
                 startActivityForResult(intent3, REQUEST_CODE_CREATE_STORY);
                 onActivityResult(REQUEST_CODE_CREATE_STORY, resultCode, intent3);
                 return true;
+            case R.id.menu_item_refresh:
+                updateUI();
+                return true;
             default:
                 return super.onOptionsItemSelected(menuitem);
         }
@@ -156,7 +159,10 @@ public class StudentQueueFragment extends Fragment {
                 }
             }
         });
-        //updateUI();
+        if (stuser.getAllStudents().size() > 0) {
+            updateUI();
+        }
+
 
         return view;
     }
