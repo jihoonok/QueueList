@@ -85,12 +85,12 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
             public void onClick(View view) {
                 new insertStudent().execute(studentInfo.getText().toString(),course,studentAssignment.getText().toString(),studentProblem.getText().toString());
                 new DequeueStudent().execute(course);
-                Fragment fragment = new Fragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_instructorview, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+               // Fragment fragment = new Fragment();
+                //FragmentManager fragmentManager = getFragmentManager();
+                //FragmentTransaction transaction = fragmentManager.beginTransaction();
+                //transaction.replace(R.id.fragment_instructorview, fragment);
+                //transaction.addToBackStack(null);
+                //transaction.commit();
             }
         });
 
@@ -131,8 +131,8 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
                 conn = (HttpURLConnection)url.openConnection();
-                conn.setReadTimeout(READ_TIMEOUT);
-                conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                conn.setReadTimeout(30000);
+                conn.setConnectTimeout(30000);
                 conn.setRequestMethod("POST");
 
                 // setDoInput and setDoOutput method depict handling of both send and receive
@@ -243,8 +243,8 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
                 url = new URL("http://www.taterpqueue.xyz/insertStudent.php");
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000);
-                conn.setConnectTimeout(15000);
+                conn.setReadTimeout(25000);
+                conn.setConnectTimeout(25000);
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);

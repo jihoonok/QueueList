@@ -185,8 +185,8 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
                 url = new URL("http://www.taterpqueue.xyz/insertStudent.php");
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000);
-                conn.setConnectTimeout(15000);
+                conn.setReadTimeout(25000);
+                conn.setConnectTimeout(25000);
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
