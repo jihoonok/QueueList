@@ -24,23 +24,24 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="@string/students"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+    <ImageButton
+        android:background="@drawable/untitled2"
+        android:layout_width="200px"
+        android:layout_height="270px"
+        android:layout_marginTop="74dp"
         android:id="@+id/student"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginStart="19dp" />
 
-    <Button
-        android:text="@string/instructors"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
+    <ImageButton
+        android:background="@drawable/untitled3"
+        android:layout_width="200px"
+        android:layout_height="270px"
         android:id="@+id/instructor"
-        android:layout_below="@+id/student"
-        android:layout_alignStart="@+id/student" />
+        android:layout_alignTop="@+id/student"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginEnd="16dp" />
 
 
 </RelativeLayout>

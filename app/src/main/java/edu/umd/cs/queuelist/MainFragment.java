@@ -6,14 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * Created by jihoonok on 3/21/17.
  */
 public class MainFragment extends android.support.v4.app.Fragment {
-    private Button studentButton;
-    private Button instructorButton;
+    private ImageButton studentButton;
+    private ImageButton instructorButton;
     private View view;
     private final String TAG = getClass().getSimpleName();
 
@@ -32,7 +32,7 @@ public class MainFragment extends android.support.v4.app.Fragment {
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        studentButton = (Button) view.findViewById(R.id.student);
+        studentButton = (ImageButton) view.findViewById(R.id.student);
         studentButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -43,7 +43,7 @@ public class MainFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        instructorButton = (Button) view.findViewById(R.id.instructor);
+        instructorButton = (ImageButton) view.findViewById(R.id.instructor);
         instructorButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

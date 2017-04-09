@@ -101,10 +101,7 @@ public class InMemoryStudentService implements StudentService {
             }
 
             Log.d("Debug", "List");
-            if (!(response.equalsIgnoreCase("0 results"))){
-                putStudent(response);
-            }
-
+            putStudent(response);
             return response;
 
         }
