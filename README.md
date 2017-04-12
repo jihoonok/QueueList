@@ -7,5 +7,9 @@ An application that organizes the office hours by implementing a queue in which 
 
 Refer to this for the layout: https://www.fluidui.com/editor/live/comment/cF9OaXFhVFVVcWRrenpEZlBtSnRlenRpcGR1R2Zzd3g2cQ==
 
-To synchronize the data: http://stackoverflow.com/questions/17686400/how-to-sync-data-between-different-devices
-https://developer.android.com/training/sharing/index.html
+Agenda:
+    - Create SMS (Text message) notification if the student will be helped.
+    - Create a table for spinner in database so we can dynamically add projects to the spinner for student applicaiton
+        - Also means we need to have an option for instructors to add a project to the table
+    - Make the App distinguish which class is being used ("It only works for 131")
+    - Check if student ID already exists in the table, dont add that student if they exist
