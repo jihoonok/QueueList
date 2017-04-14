@@ -6,11 +6,18 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.umd.cs.queuelist.model.Student;
 import edu.umd.cs.queuelist.service.StudentService;
@@ -47,11 +54,11 @@ public class InMemoryStudentService implements StudentService {
         return null;
     }
 
-    public List<Student> getAllStudents() {
+    public List<Student> getAllStudents(String course) {
         students = new ArrayList<Student>();
-        new getStudent().execute();
+        new getStudent().execute(course);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1500);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,14 +81,27 @@ public class InMemoryStudentService implements StudentService {
         protected String doInBackground(String... params) {
             URL url;
             String response = "";
+            HashMap<String,String> postDataParams = new HashMap<String,String>();
+            postDataParams.put("course", params[0]);
 
             try {
                 url = new URL("http://www.taterpqueue.xyz/StudentList.php");
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000);
-                conn.setConnectTimeout(15000);
+                conn.setReadTimeout(25000);
+                conn.setConnectTimeout(25000);
+                conn.setRequestMethod("POST");
                 conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
 
                 int responseCode=conn.getResponseCode();
 
@@ -108,6 +128,22 @@ public class InMemoryStudentService implements StudentService {
 
         }
 
+        private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+            for(Map.Entry<String, String> entry : params.entrySet()){
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            }
+
+            return result.toString();
+        }
 
         @Override
         protected void onPostExecute(String result) {

@@ -8,5 +8,5 @@ import edu.umd.cs.queuelist.model.Student;
 public interface StudentService {
     public void addStudentToQueue(Student student);
     public Student getStudentById(String id);
-    public List<Student> getAllStudents();
+    public List<Student> getAllStudents(String course);
 }

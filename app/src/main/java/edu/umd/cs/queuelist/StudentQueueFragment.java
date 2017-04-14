@@ -8,9 +8,9 @@ package edu.umd.cs.queuelist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +36,8 @@ public class StudentQueueFragment extends Fragment {
     private RecyclerView recycle;
     private StudentAdapter studentA;
     private final String TAG = getClass().getSimpleName();
+    private String majorCourse = "cmsc131";
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private class StudentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -137,7 +139,15 @@ public class StudentQueueFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_studentqueue, container, false);
         recycle = (RecyclerView)view.findViewById(R.id.student_recycler_view);
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateUI(majorCourse);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        /*recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -150,13 +160,13 @@ public class StudentQueueFragment extends Fragment {
                 if (recyclerView.SCROLL_STATE_DRAGGING == newState) {
                     if (newState == 1) {
                         Log.d("hello", "scrolling down");
-                        updateUI();
+                        updateUI(majorCourse);
                         Log.d("hello", "kappa");
                     }
                 }
             }
-        });
-        updateUI();
+        });*/
+        updateUI(majorCourse);
 
         return view;
     }
@@ -168,7 +178,29 @@ public class StudentQueueFragment extends Fragment {
             if (requestCode == REQUEST_CODE_CREATE_STORY) {
                 Student aStudent = (Student)data.getSerializableExtra(StudentNameFragment.EXTRA_STUDENT_CREATED);
                 stuser.addStudentToQueue(aStudent);
-                updateUI();
+                int course = aStudent.getClassCodePosition();
+                switch (course) {
+                    case 0:
+                        majorCourse = "none";
+                        updateUI("none");
+                        break;
+                    case 1:
+                        majorCourse = "cmsc131";
+                        updateUI("cmsc131");
+                        break;
+                    case 2:
+                        majorCourse = "cmsc132";
+                        updateUI("cmsc132");
+                        break;
+                    case 3:
+                        majorCourse = "cmsc216";
+                        updateUI("cmsc216");
+                        break;
+                    default:
+                        majorCourse = "none";
+                        updateUI("none");
+                }
+
             }
         }
     }
@@ -177,8 +209,8 @@ public class StudentQueueFragment extends Fragment {
         return new StudentQueueFragment();
     }
 
-    private void updateUI() {
-        List<Student> studentL = stuser.getAllStudents();
+    private void updateUI(String course) {
+        List<Student> studentL = stuser.getAllStudents(course);
         if (studentA == null) {
             studentA = new StudentAdapter(studentL);
             recycle.setAdapter(studentA);

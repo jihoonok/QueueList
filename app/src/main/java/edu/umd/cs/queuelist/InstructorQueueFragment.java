@@ -31,6 +31,7 @@ public class InstructorQueueFragment extends Fragment {
     private RecyclerView recycle;
     private StudentAdapter studentA;
     private final String TAG = getClass().getSimpleName();
+    private String course = "cmsc131";
 
     private class StudentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -127,7 +128,7 @@ public class InstructorQueueFragment extends Fragment {
                 if (recyclerView.SCROLL_STATE_DRAGGING == newState) {
                     if (newState == 1) {
                         Log.d("hello", "scrolling down");
-                        updateUI();
+                        updateUI(course);
                     }
                 }
             }
@@ -143,7 +144,7 @@ public class InstructorQueueFragment extends Fragment {
             if (requestCode == REQUEST_CODE_CREATE_STORY) {
                 Student aStudent = (Student)data.getSerializableExtra(StudentNameFragment.EXTRA_STUDENT_CREATED);
                 stuser.addStudentToQueue(aStudent);
-                updateUI();
+                updateUI(course);
             }
         }
     }
@@ -152,8 +153,8 @@ public class InstructorQueueFragment extends Fragment {
         return new StudentQueueFragment();
     }
 
-    private void updateUI() {
-        List<Student> studentL = stuser.getAllStudents();
+    private void updateUI(String course) {
+        List<Student> studentL = stuser.getAllStudents(course);
         if (studentA == null) {
             studentA = new StudentAdapter(studentL);
             recycle.setAdapter(studentA);
