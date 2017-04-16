@@ -1,15 +1,21 @@
 package edu.umd.cs.queuelist;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -41,6 +47,8 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
     private String course;
+    private String phoneNumber;
+    private final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
 
     public static InstructorViewFragment newInstance() {
@@ -67,11 +75,38 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
         viewQueue = (Button) view.findViewById(R.id.viewQueue);
         addProject = (Button) view.findViewById(R.id.addProject);
 
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.SEND_SMS)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.SEND_SMS},
+                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+
+                // MY_PERMISSIONS_REQUEST_SEND_SMS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
         nextStudent.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 new DequeueStudent().execute(course);
+
 //                Fragment fragment = new Fragment();
 //                FragmentManager fragmentManager = getFragmentManager();
 //                FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -189,6 +224,7 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
 
                     // Pass data to onPostExecute method
                     Log.d("Debug", result.toString());
+
                     return(result.toString());
 
 
@@ -217,18 +253,38 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
                 Log.d("Debug", result);
                 Log.d("Debug", "onPostExecute: U");
             }else{
+                Log.d("Debug", "onPostExecute: S");
+                sendText(result);
+            }
 
+            }
+
+        private void sendText(String result){
                 String[] stuff = result.split(",");
                 if (stuff.length > 0) {
                     studentInfo.setText(stuff[0]);
                     studentAssignment.setText(stuff[1]);
                     studentProblem.setText(stuff[2]);
+                    phoneNumber = stuff[3];
                 }
-            }
 
-            }
+                String sms = "It's your turn.";
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNumber, null, sms, null, null);
+                    Toast.makeText(getActivity().getApplicationContext(), "SMS Sent!",
+                            Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "SMS faild, please try again later!",
+                            Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
 
         }
+        }
+
+
 
     private class insertStudent extends AsyncTask<String, String, String> {
         HttpURLConnection conn;
@@ -331,6 +387,8 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
         }
 
     }
+
+
 
 }
 

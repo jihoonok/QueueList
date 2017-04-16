@@ -32,15 +32,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/student_name" />
         <TextView
-            android:text="@string/user_id_label"
+            android:text="@string/user_cell_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30dp" />
         <EditText
-            android:hint="@string/user_id_hint"
+            android:hint="@string/user_cell_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/user_id" />
+            android:id="@+id/user_cell" />
         <TextView
             android:text="@string/class_label"
             android:layout_width="match_parent"

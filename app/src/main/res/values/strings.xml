@@ -6,8 +6,8 @@
     <string name="instructors">Instructors</string>
     <string name="student_name_label">Student Name</string>
     <string name="student_name_hint">Enter your name here</string>
-    <string name="user_id_label">User ID</string>
-    <string name="user_id_hint">Enter your user id here</string>
+    <string name="user_cell_label">Cell Number</string>
+    <string name="user_cell_hint">Enter your Cell number here</string>
     <string name="class_label">Class</string>
     <string name="assignment_label">Assigment</string>
     <string name="problem_label">Problem</string>

@@ -43,7 +43,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
     private View view;
     private Student student;
     private Spinner classSpinner, assignmentSpinner;
-    private EditText name, userid, problem;
+    private EditText name, userCell, problem;
     private StudentService stuser;
     private String course;
     private String assignment;
@@ -69,7 +69,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
         classSpinner = (Spinner)view.findViewById(R.id.spinner_class);
         assignmentSpinner = (Spinner)view.findViewById(R.id.spinner_assignment);
         name = (EditText)view.findViewById(R.id.student_name);
-        userid = (EditText)view.findViewById(R.id.user_id);
+        userCell = (EditText)view.findViewById(R.id.user_cell);
         problem = (EditText)view.findViewById(R.id.problem);
         checkInButton = (Button)view.findViewById(R.id.check_in_button);
         cancelButton = (Button)view.findViewById(R.id.cancel_button);
@@ -104,11 +104,11 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
             public void onClick(View view1) {
                 Intent intent2 = getActivity().getIntent();
                 String name_string = name.getText().toString();
-                String userid_string = userid.getText().toString();
+                String userCell_string = userCell.getText().toString();
                 String problem_string = problem.getText().toString();
                 student = new Student();
                 student.setName(name_string);
-                student.setUserId(userid_string);
+                student.setUserId(userCell_string);
                 student.setProblem(problem_string);
                 student.setClassCode(classSpinner.getSelectedItemPosition());
                 student.setAssignment(assignmentSpinner.getSelectedItemPosition());
@@ -150,7 +150,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
 //                }
 
 
-                new insertStudent().execute(name_string, course, assignment, problem_string);
+                new insertStudent().execute(name_string, course, assignment, problem_string,userCell_string);
                 //Log.d(TAG, aStory.getId());
                 intent2.putExtra(EXTRA_STUDENT_CREATED, student);
                 getActivity().setResult(RESULT_OK, intent2);
@@ -180,6 +180,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
             postDataParams.put("name",params[0]);
             postDataParams.put("assignment", params[2]);
             postDataParams.put("problem",params[3]);
+            postDataParams.put("cell",params[4]);
 
             try {
                 url = new URL("http://www.taterpqueue.xyz/insertStudent.php");
