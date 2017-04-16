@@ -34,6 +34,7 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
     private Button nextStudent;
     private Button AddStudent;
     private Button viewQueue;
+    private Button addProject;
     private TextView studentInfo;
     private TextView studentAssignment;
     private TextView studentProblem;
@@ -64,6 +65,7 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
         nextStudent = (Button) view.findViewById(R.id.next);
         AddStudent = (Button) view.findViewById(R.id.add_student);
         viewQueue = (Button) view.findViewById(R.id.viewQueue);
+        addProject = (Button) view.findViewById(R.id.addProject);
 
         nextStudent.setOnClickListener(new View.OnClickListener() {
 
@@ -102,6 +104,13 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
             }
         });
 
+        addProject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), InstructorProjectAddActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

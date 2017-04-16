@@ -24,6 +24,7 @@
         <activity android:name=".InstructorLoginActivity"></activity>
         <activity android:name=".InstructorViewActivity"></activity>
         <activity android:name=".InstructorQueueActivity"></activity>
+        <activity android:name=".InstructorProjectAddActivity"></activity>
     </application>
 
 </manifest>

@@ -33,4 +33,6 @@
     <string name="next">Next Student</string>
     <string name="next_student">Click next student button to get the next student that needs help</string>
     <string name="Refresh">refresh</string>
+    <string name="addProject">Add Project</string>
+    <string name="enterProjectName">Enter Project Name</string>
 </resources>

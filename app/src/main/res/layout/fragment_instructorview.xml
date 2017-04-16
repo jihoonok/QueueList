@@ -88,11 +88,21 @@
             android:text="@string/next"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View Queue"
             android:id="@+id/viewQueue" />
 
+        <Button
+            android:id="@+id/addProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addProject" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
