@@ -8,8 +8,8 @@ An application that organizes the office hours by implementing a queue in which 
 Refer to this for the layout: https://www.fluidui.com/editor/live/comment/cF9OaXFhVFVVcWRrenpEZlBtSnRlenRpcGR1R2Zzd3g2cQ==
 
 Agenda: <br /><br />
-    Create SMS (Text message) notification if the student will be helped. <br />
-    Create a table for spinner in database so we can dynamically add projects to the spinner for student applicaiton <br />
-        Also means we need to have an option for instructors to add a project to the table <br />
+    <strike>Create SMS (Text message) notification if the student will be helped.</strike> <br />
+    <strike>Create a table for spinner in database so we can dynamically add projects to the spinner for student application </strike><br />
+        <strike>Also means we need to have an option for instructors to add a project to the table</strike> <br />
     Make the App distinguish which class is being used ("It only works for 131") <br />
     Check if student ID already exists in the table, dont add that student if they exist <br />
