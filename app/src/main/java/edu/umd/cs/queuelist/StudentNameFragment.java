@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +50,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
     private String assignment;
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
+    private ArrayList<String> projects;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,8 +82,13 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
         classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         classSpinner.setAdapter(classAdapter);
 
-        String projects[] = {"Project 1", "Project 2", "Project 3"};
-
+        projects = new ArrayList<String>();
+        new getProjects().execute();
+        try {
+            Thread.sleep(1500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ArrayAdapter<String> assignmentAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, projects);
         assignmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -224,7 +231,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
         private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
             StringBuilder result = new StringBuilder();
             boolean first = true;
-            for(Map.Entry<String, String> entry : params.entrySet()){
+            for(Map.Entry<String, String> entry : params.entrySet()) {
                 if (first)
                     first = false;
                 else
@@ -261,6 +268,112 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
             }
 
         }
+
+    }
+
+    protected class getProjects extends AsyncTask<String, String, String> {
+        HttpURLConnection conn;
+        URL url = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d("Debug", "About to begin");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            URL url;
+            String response = "";
+            HashMap<String,String> postDataParams = new HashMap<String,String>();
+
+            try {
+                url = new URL("http://www.taterpqueue.xyz/getProjects.php");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(25000);
+                conn.setConnectTimeout(25000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode=conn.getResponseCode();
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line=br.readLine()) != null) {
+                        response+=line;
+                    }
+                }
+                else {
+                    response="No way";
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Log.d("Debug", "List");
+            if (!response.equalsIgnoreCase("0 results")) {
+                putStudent(response);
+            }
+            return response;
+
+        }
+
+        private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+            Log.d("Debug", "going in post data");
+            for(Map.Entry<String, String> entry : params.entrySet()){
+                Log.d("Debug", "getPost" + URLEncoder.encode(entry.getKey(), "UTF-8") + URLEncoder.encode(entry.getValue(), "UTF-8"));
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                Log.d("Debug", "hahahaha");
+                Log.d("Debug", result.toString());
+                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            }
+
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(result.equalsIgnoreCase("Query Error")){
+                Log.d("Debug", "onPostExecute: U");
+            }else{
+                Log.d("Debug", result);
+                Log.d("Debug", "onPostExecute: S");
+            }
+
+        }
+
+        protected void putStudent(String result){
+            String[] words = result.split("&");
+            ArrayList<String> tempList = new ArrayList<String>();
+            for (String project : words) {
+                tempList.add(project);
+            }
+
+            projects = tempList;
+            Log.d("Debug", projects.toString());
+        }
+
 
     }
 
