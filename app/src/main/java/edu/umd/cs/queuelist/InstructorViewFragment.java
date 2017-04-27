@@ -135,7 +135,9 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), InstructorQueueActivity.class);
+                intent.putExtra("Class", course);
+                startActivity(intent);
             }
         });
 

@@ -3,9 +3,9 @@ package edu.umd.cs.queuelist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +16,17 @@ import java.util.List;
 import edu.umd.cs.queuelist.model.Student;
 import edu.umd.cs.queuelist.service.StudentService;
 
-import static android.app.Activity.RESULT_OK;
-
-/**
- * Created by khanhnguyen on 4/8/17.
- */
-
 public class InstructorQueueFragment extends Fragment {
 
-    private final int REQUEST_CODE_CREATE_STORY = 2;
-    private int resultCode;
+
+    private String course;
     private StudentService stuser;
     private View view;
     private RecyclerView recycle;
     private StudentAdapter studentA;
     private final String TAG = getClass().getSimpleName();
-    private String course = "cmsc131";
+    private String majorCourse = "cmsc131";
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private class StudentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -103,54 +98,35 @@ public class InstructorQueueFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         stuser = DependencyFactory.getStudentService(getActivity().getApplicationContext());
-        setHasOptionsMenu(true);
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent getIntent = getActivity().getIntent();
+        course = getIntent.getStringExtra("Class");
         view = inflater.inflate(R.layout.fragment_studentqueue, container, false);
         recycle = (RecyclerView)view.findViewById(R.id.student_recycler_view);
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                if (recyclerView.SCROLL_STATE_DRAGGING == newState) {
-                    if (newState == 1) {
-                        Log.d("hello", "scrolling down");
-                        updateUI(course);
-                    }
-                }
+            public void onRefresh() {
+                updateUI(majorCourse);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        updateUI(course);
 
         return view;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CODE_CREATE_STORY) {
-                Student aStudent = (Student)data.getSerializableExtra(StudentNameFragment.EXTRA_STUDENT_CREATED);
-                stuser.addStudentToQueue(aStudent);
-                updateUI(course);
-            }
-        }
-    }
-
-    public static StudentQueueFragment newInstance() {
-        return new StudentQueueFragment();
+    public static InstructorQueueFragment newInstance() {
+        return new InstructorQueueFragment();
     }
 
     private void updateUI(String course) {
@@ -163,4 +139,5 @@ public class InstructorQueueFragment extends Fragment {
             studentA.notifyDataSetChanged();
         }
     }
+
 }
