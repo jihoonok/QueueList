@@ -2,6 +2,8 @@
 
 SPEECH-https://docs.google.com/document/d/1D5cL-9Wr-n4_llTJKjyyQ-oDvXO8LUCZoYkuAUWMA44/edit?usp=sharing
 
+PPT SLIDE- https://docs.google.com/presentation/d/1joQp_RV2whrspVA417EbEpm3IpC0cTGk3mQkbVFM7LE/edit?usp=sharing
+
 ONLY UPDATE THE APP FOLDER, DONT UPLOAD ANY OTHER FOLDERS, this will mess up the push/pull calls
 
 CMSC436
