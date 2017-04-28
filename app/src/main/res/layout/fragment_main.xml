@@ -15,22 +15,14 @@
         android:text="@string/welcome"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="35sp"
         android:gravity="center"
         android:layout_marginTop="42dp"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="@string/getting_started"
-        android:textSize="24sp"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
 
     <ImageButton
         android:background="@drawable/untitled2"
@@ -50,6 +42,18 @@
         android:layout_alignTop="@+id/student"
         android:layout_alignEnd="@+id/textView"
         android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:text="@string/getting_started"
+        android:textSize="17sp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:textStyle="bold"
+        />
 
 
 </RelativeLayout>

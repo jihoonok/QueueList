@@ -1,5 +1,6 @@
 package edu.umd.cs.queuelist;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -171,11 +172,13 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
     private class insertStudent extends AsyncTask<String, String, String> {
         HttpURLConnection conn;
         URL url = null;
+        ProgressDialog dialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("Debug", "About to begin");
+            dialog = ProgressDialog.show(getActivity(),"Please Wait..","Inserting Student ... ",true);
         }
 
         @Override
@@ -252,6 +255,10 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
             }else{
                 Log.d("Debug", result);
                 Log.d("Debug", "onPostExecute: U");
+            }
+
+            if (dialog.isShowing()) {
+                dialog.dismiss();
             }
 
         }

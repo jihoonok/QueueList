@@ -7,14 +7,12 @@ package edu.umd.cs.queuelist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -113,7 +111,7 @@ public class StudentQueueFragment extends Fragment {
 
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuinflate) {
         super.onCreateOptionsMenu(menu, menuinflate);
         menuinflate.inflate(R.menu.fragment_studentqueue, menu);
@@ -130,7 +128,7 @@ public class StudentQueueFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(menuitem);
         }
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -166,6 +164,15 @@ public class StudentQueueFragment extends Fragment {
                 }
             }
         });*/
+
+        FloatingActionButton myFab = (FloatingActionButton)  view.findViewById(R.id.myFAB);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent3 = new Intent(getActivity().getApplicationContext(), StudentNameActivity.class);
+                startActivityForResult(intent3, REQUEST_CODE_CREATE_STORY);
+                onActivityResult(REQUEST_CODE_CREATE_STORY, resultCode, intent3);
+            }
+        });
         updateUI(majorCourse);
 
         return view;

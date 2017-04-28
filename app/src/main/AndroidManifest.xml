@@ -20,12 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StudentNameActivity"></activity>
-        <activity android:name=".StudentQueueActivity"></activity>
-        <activity android:name=".InstructorLoginActivity"></activity>
-        <activity android:name=".InstructorViewActivity"></activity>
-        <activity android:name=".InstructorQueueActivity"></activity>
-        <activity android:name=".InstructorProjectAddActivity"></activity>
+        <activity android:name=".StudentNameActivity" android:label="Student Check-In"></activity>
+        <activity android:name=".StudentQueueActivity" android:label="Student Queue"></activity>
+        <activity android:name=".InstructorLoginActivity" android:label="Instructor Login"></activity>
+        <activity android:name=".InstructorViewActivity" android:label="Instructor View"></activity>
+        <activity android:name=".InstructorQueueActivity" android:label="Student Queue"></activity>
+        <activity android:name=".InstructorProjectAddActivity" android:label="Add Project"></activity>
     </application>
 
 </manifest>
