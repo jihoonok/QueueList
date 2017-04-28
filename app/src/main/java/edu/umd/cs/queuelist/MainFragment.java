@@ -37,7 +37,7 @@ public class MainFragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View v1) {
-                Intent intent = new Intent(getActivity(), StudentQueueActivity.class);
+                Intent intent = new Intent(getActivity(), StudentListActivity.class);
                 Log.d(TAG, "Student Button");
                 startActivity(intent);
             }

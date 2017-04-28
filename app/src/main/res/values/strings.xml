@@ -35,4 +35,6 @@
     <string name="Refresh">refresh</string>
     <string name="addProject">Add Project</string>
     <string name="enterProjectName">Enter Project Name</string>
+    <string name="title_student_list">Students</string>
+    <string name="title_student_detail">Student Detail</string>
 </resources>

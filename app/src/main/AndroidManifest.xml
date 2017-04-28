@@ -5,27 +5,51 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StudentNameActivity" android:label="Student Check-In"></activity>
-        <activity android:name=".StudentQueueActivity" android:label="Student Queue"></activity>
-        <activity android:name=".InstructorLoginActivity" android:label="Instructor Login"></activity>
-        <activity android:name=".InstructorViewActivity" android:label="Instructor View"></activity>
-        <activity android:name=".InstructorQueueActivity" android:label="Student Queue"></activity>
-        <activity android:name=".InstructorProjectAddActivity" android:label="Add Project"></activity>
+        <activity
+            android:name=".StudentNameActivity"
+            android:label="Student Check-In" />
+        <activity
+            android:name=".StudentQueueActivity"
+            android:label="Student Queue" />
+        <activity
+            android:name=".InstructorLoginActivity"
+            android:label="Instructor Login" />
+        <activity
+            android:name=".InstructorViewActivity"
+            android:label="Instructor View" />
+        <activity
+            android:name=".InstructorQueueActivity"
+            android:label="Student Queue" />
+        <activity
+            android:name=".InstructorProjectAddActivity"
+            android:label="Add Project" />
+        <activity
+            android:name=".StudentListActivity"
+            android:label="@string/title_student_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".StudentDetailActivity"
+            android:label="@string/title_student_detail"
+            android:parentActivityName=".StudentListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.umd.cs.queuelist.StudentListActivity" />
+        </activity>
     </application>
 
 </manifest>

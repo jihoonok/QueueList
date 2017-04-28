@@ -40,7 +40,7 @@ public class InMemoryStudentService implements StudentService {
             currStudent.setUserId(student.getUserId());
             currStudent.setProblem(student.getProblem());
             currStudent.setClassCode(student.getClassCodePosition());
-            currStudent.setAssignment(student.getAssignmentPosition());
+            currStudent.setAssignment(student.getAssignment());
         }
     }
 
@@ -170,15 +170,10 @@ public class InMemoryStudentService implements StudentService {
                 assignment = stuff[1];
                 problem = stuff[2];
 
-                if (assignment.equalsIgnoreCase("Project 1"))
-                    student.setAssignment(1);
-                else if (assignment.equalsIgnoreCase("Project 2"))
-                    student.setAssignment(2);
-                else if (assignment.equalsIgnoreCase("Project 3"))
-                    student.setAssignment(3);
+                student.setAssignment(assignment);
                 student.setName(studentName);
                 student.setProblem(problem);
-                student.setUserId("dennis");
+                student.setUserId("N\\A");
                 tempList.add(student);
             }
 

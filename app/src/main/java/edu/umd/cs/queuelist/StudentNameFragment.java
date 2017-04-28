@@ -119,7 +119,7 @@ public class StudentNameFragment extends android.support.v4.app.Fragment {
                 student.setUserId(userCell_string);
                 student.setProblem(problem_string);
                 student.setClassCode(classSpinner.getSelectedItemPosition());
-                student.setAssignment(assignmentSpinner.getSelectedItemPosition());
+                student.setAssignment(assignmentSpinner.getPrompt().toString());
 
                 switch (classSpinner.getSelectedItemPosition()) {
                     case 0:

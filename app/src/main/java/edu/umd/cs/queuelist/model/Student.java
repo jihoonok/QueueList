@@ -12,7 +12,7 @@ public class Student implements Serializable {
     private String name;
     private String problem;
     private ClassCode classCode = ClassCode.NONE;
-    private Assignment assignment = Assignment.NONE;
+    private String assignment = "Question";
     private Date timeCreated;
 
     public Student() {
@@ -82,43 +82,13 @@ public class Student implements Serializable {
         }
     }
 
-    public Assignment getAssignment() {
+    public String getAssignment() {
         return assignment;
     }
 
-    public int getAssignmentPosition() {
-        switch (assignment) {
-            case NONE:
-                return 0;
-            case PROJECT1:
-                return 1;
-            case PROJECT2:
-                return 2;
-            case PROJECT3:
-                return 3;
-            default:
-                return 0;
-        }
-    }
 
-    public void setAssignment(int position) {
-        switch (position) {
-            case 0:
-                this.assignment = Assignment.NONE;
-                break;
-            case 1:
-                this.assignment = Assignment.PROJECT1;
-                break;
-            case 2:
-                this.assignment = Assignment.PROJECT2;
-                break;
-            case 3:
-                this.assignment = Assignment.PROJECT3;
-                break;
-            default:
-                this.assignment = Assignment.NONE;
-                break;
-        }
+    public void setAssignment(String assignment) {
+        this.assignment = assignment;
     }
 
     public Date getTimeCreated() {
@@ -128,8 +98,9 @@ public class Student implements Serializable {
     @Override
     public String toString() {
         int displayLength = 10;
-        return name.substring(0, name.length() >= displayLength ? displayLength : name.length()) +
-                " : " + userid + " : " + classCode + " : " + assignment;
+        return "Assignment: " + assignment + "\n"
+                + "Inserted in Queue:" + timeCreated + "\n"
+                + "Directory ID: " + userid;
     }
 
     public enum ClassCode {
