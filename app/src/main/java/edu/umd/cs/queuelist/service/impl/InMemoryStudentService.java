@@ -88,6 +88,7 @@ public class InMemoryStudentService implements StudentService {
                 url = new URL("http://www.taterpqueue.xyz/StudentList.php");
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                Log.d("Debug", ""+ conn);
                 conn.setReadTimeout(25000);
                 conn.setConnectTimeout(25000);
                 conn.setRequestMethod("POST");
@@ -105,6 +106,7 @@ public class InMemoryStudentService implements StudentService {
 
                 int responseCode=conn.getResponseCode();
 
+                Log.d("Debug", ""+responseCode);
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     String line;
                     BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -117,6 +119,7 @@ public class InMemoryStudentService implements StudentService {
 
                 }
             } catch (Exception e) {
+                Log.d("Debug", e.getMessage());
                 e.printStackTrace();
             }
 
