@@ -98,6 +98,7 @@ public class InstructorQueueFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         stuser = DependencyFactory.getStudentService(getActivity().getApplicationContext());
+        getActivity().setTitle(majorCourse.toUpperCase());
 
     }
 
@@ -131,6 +132,7 @@ public class InstructorQueueFragment extends Fragment {
 
     private void updateUI(String course) {
         List<Student> studentL = stuser.getAllStudents(course);
+        getActivity().setTitle(course.toUpperCase());
         if (studentA == null) {
             studentA = new StudentAdapter(studentL);
             recycle.setAdapter(studentA);

@@ -63,6 +63,7 @@ public class StudentListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
+        setTitle(majorCourse.toUpperCase());
 
 
         stuser = DependencyFactory.getStudentService(getApplicationContext());
@@ -216,6 +217,7 @@ public class StudentListActivity extends AppCompatActivity {
     }
     private void updateUI(String course) {
         List<Student> studentL = stuser.getAllStudents(course);
+        setTitle(course.toUpperCase());
         if (studentA == null) {
             studentA = new StudentAdapter(studentL);
             recyclerView.setAdapter(studentA);

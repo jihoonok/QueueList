@@ -54,7 +54,7 @@ public class InstructorLoginFragment extends android.support.v4.app.Fragment {
                 String pass = password.getText().toString();
                 String classCode = classSpinner.getSelectedItem().toString();
 
-                if (classCode.equals("CMSC131")) {
+                if (classCode.equalsIgnoreCase("CMSC131")) {
                     if (user.equals("CMSC131") && pass.equals("sprcoredump")) {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
                         intent.putExtra("Course", "cmsc131");
@@ -63,7 +63,7 @@ public class InstructorLoginFragment extends android.support.v4.app.Fragment {
                         Toast.makeText(getActivity(), "Incorrect login information",
                                 Toast.LENGTH_SHORT).show();
                     }
-                } else if (classCode.equals("CMSC132")) {
+                } else if (classCode.equalsIgnoreCase("CMSC132")) {
                     if (user.equals("CMSC132") && pass.equals("sprcoredump")) {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
                         intent.putExtra("Course", "cmsc132");
@@ -72,7 +72,7 @@ public class InstructorLoginFragment extends android.support.v4.app.Fragment {
                         Toast.makeText(getActivity(), "Incorrect login information",
                                 Toast.LENGTH_SHORT).show();
                     }
-                } else if (classCode.equals("CMSC216")) {
+                } else if (classCode.equalsIgnoreCase("CMSC216")) {
                     if (user.equals("CMSC216") && pass.equals("sprcoredump")) {
                         Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
                         intent.putExtra("Course", "cmsc216");

@@ -108,7 +108,7 @@ public class StudentQueueFragment extends Fragment {
 
         stuser = DependencyFactory.getStudentService(getActivity().getApplicationContext());
         setHasOptionsMenu(true);
-
+        getActivity().setTitle(majorCourse.toUpperCase());
     }
 
     /*@Override
@@ -218,6 +218,7 @@ public class StudentQueueFragment extends Fragment {
 
     private void updateUI(String course) {
         List<Student> studentL = stuser.getAllStudents(course);
+        getActivity().setTitle(majorCourse.toUpperCase());
         if (studentA == null) {
             studentA = new StudentAdapter(studentL);
             recycle.setAdapter(studentA);
