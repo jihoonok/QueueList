@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +22,8 @@ import java.util.List;
 
 import edu.umd.cs.queuelist.model.Student;
 import edu.umd.cs.queuelist.service.StudentService;
+
+import static edu.umd.cs.queuelist.MainFragment.dialog;
 
 /**
  * An activity representing a list of Students. This activity
@@ -41,8 +45,10 @@ public class StudentListActivity extends AppCompatActivity {
     private StudentService stuser;
     private StudentAdapter studentA;
     private RecyclerView recyclerView;
-    private String majorCourse = "cmsc131";
+    private static String majorCourse = "cmsc131";
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private CoordinatorLayout coordLayout;
+    public static boolean activityVisible = false;
 
     @Override
     protected void onResume() {
@@ -54,17 +60,22 @@ public class StudentListActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 updateUI(majorCourse);
+                Snackbar.make(mSwipeRefreshLayout, "Student Queue List Updated", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
+        Intent in = getIntent();
+        majorCourse= in.getStringExtra("course");
         setTitle(majorCourse.toUpperCase());
-
+        coordLayout = (CoordinatorLayout) findViewById(R.id.coordLayout);
 
         stuser = DependencyFactory.getStudentService(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -212,18 +223,24 @@ public class StudentListActivity extends AppCompatActivity {
                         updateUI("none");
                 }
 
+                Snackbar.make(coordLayout, aStudent.getName() + " Inserted to Queue List", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
             }
         }
     }
     private void updateUI(String course) {
         List<Student> studentL = stuser.getAllStudents(course);
-        setTitle(course.toUpperCase());
+        setTitle("Student Queue - " + course.toUpperCase());
         if (studentA == null) {
             studentA = new StudentAdapter(studentL);
             recyclerView.setAdapter(studentA);
         } else {
             studentA.setStudents(studentL);
             studentA.notifyDataSetChanged();
+        }
+        if (dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 

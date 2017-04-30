@@ -10,6 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:id="@+id/coordLayout"
     tools:context="edu.umd.cs.queuelist.StudentListActivity">
 
     <android.support.design.widget.AppBarLayout

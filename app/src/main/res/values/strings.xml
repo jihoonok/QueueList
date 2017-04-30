@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">QueueList</string>
     <string name="welcome">QueueList</string>
-    <string name="getting_started">Click which one you are to get started</string>
+    <string name="getting_started">Click which one you are to get started.</string>
     <string name="students">Students</string>
     <string name="instructors">Instructors</string>
     <string name="student_name_label">Student Name</string>
