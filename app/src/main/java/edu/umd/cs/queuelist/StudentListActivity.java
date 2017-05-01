@@ -80,7 +80,7 @@ public class StudentListActivity extends AppCompatActivity {
         stuser = DependencyFactory.getStudentService(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        toolbar.setTitle(majorCourse.toUpperCase());
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
