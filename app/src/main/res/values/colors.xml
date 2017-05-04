@@ -10,5 +10,6 @@
     <color name="black">#000000</color>
     <color name="lightGray">#787676</color>
     <color name="darkWhite">#bbbbbb</color>
+    <color name="darkerWhite">#aaaaaa</color>
 
 </resources>

@@ -34,7 +34,7 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
 
         // Student Queue Page
         Thread.sleep(4000);
-        onView(withId(R.id.myFAB)).perform(click());
+        onView(withId(R.id.fab)).perform(click());
 
         // Student info
         onView(withId(R.id.student_name)).perform(typeText("Clyde Kruskal"));
@@ -48,8 +48,9 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
         onData(allOf(is(instanceOf(String.class)), is("Project 3"))).perform(click());
 
         onView(withId(R.id.problem)).perform(typeText("Can you make N = 1 to make P = NP"));
+        Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.submit)).perform(click());
+        onView(withId(R.id.check_in_button)).perform(click());
 
     }
 

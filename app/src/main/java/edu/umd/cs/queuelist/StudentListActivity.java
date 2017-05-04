@@ -135,8 +135,12 @@ public class StudentListActivity extends AppCompatActivity {
         public void onBindViewHolder(final StudentHolder holder, final int position) {
             final Student student = mValues.get(position);
             holder.bindStudent(student,position+1);
-            if(position % 2 == 0)
+            if(position % 2 == 0) {
                 holder.mView.setBackgroundColor(getColor(R.color.lightGray));
+            }else {
+                holder.mView.setBackgroundColor(getColor(R.color.darkWhite));
+            }
+
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
