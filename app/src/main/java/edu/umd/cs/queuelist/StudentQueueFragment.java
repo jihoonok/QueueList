@@ -7,7 +7,6 @@ package edu.umd.cs.queuelist;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -165,14 +164,6 @@ public class StudentQueueFragment extends Fragment {
             }
         });*/
 
-        FloatingActionButton myFab = (FloatingActionButton)  view.findViewById(R.id.myFAB);
-        myFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent3 = new Intent(getActivity().getApplicationContext(), StudentNameActivity.class);
-                startActivityForResult(intent3, REQUEST_CODE_CREATE_STORY);
-                onActivityResult(REQUEST_CODE_CREATE_STORY, resultCode, intent3);
-            }
-        });
         updateUI(majorCourse);
 
         return view;
