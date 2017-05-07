@@ -108,7 +108,7 @@ public class InstructorQueueFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Intent getIntent = getActivity().getIntent();
-        course = getIntent.getStringExtra("Class");
+        majorCourse = getIntent.getStringExtra("Class");
         view = inflater.inflate(R.layout.fragment_studentqueue, container, false);
         recycle = (RecyclerView)view.findViewById(R.id.student_recycler_view);
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -121,7 +121,7 @@ public class InstructorQueueFragment extends Fragment {
             }
         });
 
-        updateUI(course);
+        updateUI(majorCourse);
 
         return view;
     }

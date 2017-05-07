@@ -120,7 +120,7 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View view) {
-                new insertStudent().execute(studentInfo.getText().toString(),course,studentAssignment.getText().toString(),studentProblem.getText().toString());
+                new insertStudent().execute(studentInfo.getText().toString(),course,studentAssignment.getText().toString(),studentProblem.getText().toString(), phoneNumber);
                 new DequeueStudent().execute(course);
                // Fragment fragment = new Fragment();
                 //FragmentManager fragmentManager = getFragmentManager();
@@ -307,6 +307,7 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
             postDataParams.put("name",params[0]);
             postDataParams.put("assignment", params[2]);
             postDataParams.put("problem",params[3]);
+            postDataParams.put("cell", params[4]);
 
             try {
                 url = new URL("http://www.taterpqueue.xyz/insertStudent.php");
