@@ -8,7 +8,5 @@ PPT SLIDE- https://docs.google.com/presentation/d/1joQp_RV2whrspVA417EbEpm3IpC0c
 CMSC436
 An application that organizes the office hours by implementing a queue in which students can use, and TAs can access. 
 
-Refer to this for the layout: https://www.fluidui.com/editor/live/comment/cF9OaXFhVFVVcWRrenpEZlBtSnRlenRpcGR1R2Zzd3g2cQ==
 
-
-Download the PHP files here: https://drive.google.com/file/d/0B1GF3cJWR9CrOHBzeHlhQlI1YlU/view?usp=sharing
+Download/View the PHP files here: https://drive.google.com/file/d/0B1GF3cJWR9CrOHBzeHlhQlI1YlU/view?usp=sharing
