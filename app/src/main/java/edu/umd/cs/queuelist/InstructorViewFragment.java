@@ -17,6 +17,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.textmagic.sdk.RestClient;
+import com.textmagic.sdk.RestException;
+import com.textmagic.sdk.resource.instance.TMNewMessage;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -29,6 +33,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +67,8 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
         super.onCreate(savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_instructorview, container, false);
+
+
 
         Intent getIntent = getActivity().getIntent();
         course = getIntent.getStringExtra("Course");
@@ -106,7 +113,11 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                 new DequeueStudent().execute(course);
-
+//                try {
+//                    Thread.sleep(3000);
+//                } catch (Exception e) {
+//
+//                }
 //                Fragment fragment = new Fragment();
 //                FragmentManager fragmentManager = getFragmentManager();
 //                FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -226,7 +237,25 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
 
                     // Pass data to onPostExecute method
                     Log.d("Debug", result.toString());
+                    String[] stuff = result.toString().split(",");
+                    if (stuff.length > 0) {
+                        phoneNumber = stuff[3];
+                    }
 
+                    //Send notification message to the next student.
+                    String sms = "Hello, " + stuff[0] + ". It's your turn.";
+                    RestClient client = new RestClient("dennisreyes", "iaMxnphJJsY1Uk8syi2O8Lj1mam9Og");
+                    String phoneString = "+1" + phoneNumber;
+                    Log.d("Debug", phoneString);
+                    TMNewMessage m = client.getResource(TMNewMessage.class);
+                    m.setText(sms);
+                    m.setPhones(Arrays.asList(new String[] {phoneString}));
+                    try {
+                        m.send();
+                    } catch (final RestException e) {
+                        //System.out.println(e.getErrors());
+                        throw new RuntimeException(e);
+                    }
                     return(result.toString());
 
 
@@ -256,34 +285,17 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
                 Log.d("Debug", "onPostExecute: U");
             }else{
                 Log.d("Debug", "onPostExecute: S");
-                sendText(result);
-            }
 
             }
+            //sendText(result);
+            String[] stuff = result.split(",");
+            if (stuff.length > 0) {
+                studentInfo.setText(stuff[0]);
+                studentAssignment.setText(stuff[1]);
+                studentProblem.setText(stuff[2]);
+            }
+            }
 
-        private void sendText(String result){
-                String[] stuff = result.split(",");
-                if (stuff.length > 0) {
-                    studentInfo.setText(stuff[0]);
-                    studentAssignment.setText(stuff[1]);
-                    studentProblem.setText(stuff[2]);
-                    phoneNumber = stuff[3];
-                }
-
-                String sms = "It's your turn.";
-                try {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(phoneNumber, null, sms, null, null);
-                    Toast.makeText(getActivity().getApplicationContext(), "SMS Sent!",
-                            Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            "SMS faild, please try again later!",
-                            Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-
-        }
         }
 
 
@@ -308,6 +320,7 @@ public class InstructorViewFragment extends android.support.v4.app.Fragment {
             postDataParams.put("assignment", params[2]);
             postDataParams.put("problem",params[3]);
             postDataParams.put("cell", params[4]);
+
 
             try {
                 url = new URL("http://www.taterpqueue.xyz/insertStudent.php");
