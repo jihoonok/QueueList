@@ -164,7 +164,7 @@ public class InMemoryStudentService implements StudentService {
             Log.d("Debug", words.length+"");
             int track = 0;  
             List<Student> tempList = new ArrayList<Student>();
-            String studentName = "", assignment = "", problem = "";
+            String studentName = "", assignment = "", problem = "", date = "";
             for (String word : words) {
                 Student student = new Student();
                 String[] stuff = word.split(",");
@@ -172,10 +172,13 @@ public class InMemoryStudentService implements StudentService {
                 studentName = stuff[0];
                 assignment = stuff[1];
                 problem = stuff[2];
+                date = stuff[3];
+
 
                 student.setAssignment(assignment);
                 student.setName(studentName);
                 student.setProblem(problem);
+                student.setTimeCreated(date);
                 student.setUserId("N\\A");
                 tempList.add(student);
             }

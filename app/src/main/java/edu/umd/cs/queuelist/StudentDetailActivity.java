@@ -75,6 +75,7 @@ public class StudentDetailActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
+
             navigateUpTo(new Intent(this, StudentListActivity.class));
             return true;
         }

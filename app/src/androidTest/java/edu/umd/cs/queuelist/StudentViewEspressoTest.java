@@ -33,10 +33,10 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
         onData(allOf(is(instanceOf(String.class)), is("CMSC132"))).perform(click());
         onView(withId(R.id.enterList)).perform(click());
 
-        Thread.sleep(2000);
+        Thread.sleep(6000);
         onView(withText("Charles")).perform(click());
 
-        Thread.sleep(2000);
+        Thread.sleep(6000);
         Espresso.pressBack();
         Espresso.pressBack();
 
@@ -63,8 +63,9 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
         onData(allOf(is(instanceOf(String.class)), is("Project 3"))).perform(click());
 
         onView(withId(R.id.problem)).perform(typeText("Hello Charles I need help"));
-//
-//        onView(withId(R.id.submit)).perform(click());
+        Espresso.closeSoftKeyboard();
+
+        //onView(withId(R.id.check_in_button)).perform(click());
 
     }
 
