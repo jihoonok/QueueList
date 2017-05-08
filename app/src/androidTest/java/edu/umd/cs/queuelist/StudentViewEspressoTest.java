@@ -35,7 +35,9 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
 
         // main page
         onView(withId(R.id.student)).perform(click());
+        Thread.sleep(2000);
         onView((withId(R.id.courseSpinner))).perform(click());
+        Thread.sleep(2000);
         onData(allOf(is(instanceOf(String.class)), is("CMSC132"))).perform(click());
         onView(withId(R.id.enterList)).perform(click());
 
@@ -55,7 +57,9 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
 
         // go to the 131 list
         onView(withId(R.id.student)).perform(click());
+        Thread.sleep(2000);
         onView((withId(R.id.courseSpinner))).perform(click());
+        Thread.sleep(2000);
         onData(allOf(is(instanceOf(String.class)), is ("CMSC131"))).perform(click());
         onView(withId(R.id.enterList)).perform(click());
 
@@ -66,19 +70,25 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
 
         // Student info
         onView(withId(R.id.student_name)).perform(typeText("Clyde Kruskal"));
+        Thread.sleep(2000);
         onView(withId(R.id.user_cell)).perform(typeText("1234567890"));
+        Thread.sleep(2000);
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.spinner_class)).perform(click());
+        Thread.sleep(2000);
         onData(allOf(is(instanceOf(String.class)), is("CMSC131"))).perform(click());
 
         onView(withId(R.id.spinner_assignment)).perform(click());
+        Thread.sleep(2000);
         onData(allOf(is(instanceOf(String.class)), is("Project 3"))).perform(click());
 
+        Thread.sleep(2000);
         onView(withId(R.id.problem)).perform(typeText("Hello Charles I need help"));
-//
-//        onView(withId(R.id.submit)).perform(click());
 
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.check_in_button)).perform(click());
+        Thread.sleep(5000);
     }
 
     public static ViewAction withCustomConstraints(final ViewAction action, final Matcher<View> constraints) {
