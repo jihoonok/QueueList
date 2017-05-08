@@ -34,7 +34,7 @@ public class InstructorViewEspressoTest extends BaseActivityEspressoTest {
         onView(withId(R.id.spinner_class)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("CMSC131"))).perform(click());
         Thread.sleep(5000);
-        onView(withId(R.id.submit)).perform(click());
+        onView(withId(R.id.submit)).perform(click()); // Enter credentials
 
 
         // Instructor View Page
@@ -43,10 +43,16 @@ public class InstructorViewEspressoTest extends BaseActivityEspressoTest {
         // add project
         onView(withId(R.id.addProject)).perform(click());
         onView(withId(R.id.projectName)).perform(typeText("Project 7"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_project)).perform(click());
 
+        // next student
         onView(withId(R.id.next)).perform(click());
+
+        // add student back to queue
         onView(withId(R.id.add_student)).perform(click());
+
+        // View the queue
         onView(withId(R.id.viewQueue)).perform(click());
 
     }

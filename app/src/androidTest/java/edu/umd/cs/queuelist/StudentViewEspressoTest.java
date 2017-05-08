@@ -2,15 +2,21 @@ package edu.umd.cs.queuelist;
 
 import android.app.Activity;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
+import android.view.View;
 
+import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.instanceOf;
@@ -25,7 +31,7 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
-    public void InstructorView() throws InterruptedException{
+    public void StudentView() throws InterruptedException{
 
         // main page
         onView(withId(R.id.student)).perform(click());
@@ -33,14 +39,21 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
         onData(allOf(is(instanceOf(String.class)), is("CMSC132"))).perform(click());
         onView(withId(R.id.enterList)).perform(click());
 
+        // test the swipe refresh
+        Thread.sleep(4000);
+        onView(withId(R.id.swipeRefreshLayout))
+                .perform(withCustomConstraints(swipeDown(), isDisplayingAtLeast(85)));
+
+        // View the student's entry
         Thread.sleep(2000);
         onView(withText("Charles")).perform(click());
 
+        // go back to the main page
         Thread.sleep(2000);
         Espresso.pressBack();
         Espresso.pressBack();
 
-
+        // go to the 131 list
         onView(withId(R.id.student)).perform(click());
         onView((withId(R.id.courseSpinner))).perform(click());
         onData(allOf(is(instanceOf(String.class)), is ("CMSC131"))).perform(click());
@@ -68,8 +81,24 @@ public class StudentViewEspressoTest extends BaseActivityEspressoTest {
 
     }
 
+    public static ViewAction withCustomConstraints(final ViewAction action, final Matcher<View> constraints) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return constraints;
+            }
 
+            @Override
+            public String getDescription() {
+                return action.getDescription();
+            }
 
+            @Override
+            public void perform(UiController uiController, View view) {
+                action.perform(uiController, view);
+            }
+        };
+    }
     @Override
     public Activity getActivity() {
         return (Activity) activityRule.getActivity();
