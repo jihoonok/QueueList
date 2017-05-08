@@ -73,7 +73,9 @@ public class StudentListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
         Intent in = getIntent();
-        majorCourse= in.getStringExtra("course");
+        if(in.getStringExtra("course") != null) {
+            majorCourse = in.getStringExtra("course");
+        }
         setTitle(majorCourse.toUpperCase());
         coordLayout = (CoordinatorLayout) findViewById(R.id.coordLayout);
 

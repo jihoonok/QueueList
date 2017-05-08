@@ -10,3 +10,8 @@ An application that organizes the office hours by implementing a queue in which 
 
 
 Download/View the PHP files here: https://drive.google.com/file/d/0B1GF3cJWR9CrOHBzeHlhQlI1YlU/view?usp=sharing
+
+We use Hostinger to host the PHP and sql: https://www.hostinger.com/
+
+TextMagic API: https://www.textmagic.com/docs/api/
+
