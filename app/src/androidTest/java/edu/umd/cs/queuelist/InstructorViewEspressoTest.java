@@ -49,14 +49,14 @@ public class InstructorViewEspressoTest extends BaseActivityEspressoTest {
 
         // next student
         onView(withId(R.id.next)).perform(click());
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         onView(withId(R.id.viewQueue)).perform(click());
-        Thread.sleep(3000);
+        Thread.sleep(4000);
         Espresso.pressBack();
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         // add student back to queue
         onView(withId(R.id.add_student)).perform(click());
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         //onView(withId(R.id.viewQueue)).perform(click());
         // View the queue
         onView(withId(R.id.viewQueue)).perform(click());
