@@ -1,10 +1,5 @@
 package edu.umd.cs.queuelist;
 
-
-/**
- * Created by khanhnguyen on 3/24/17.
- */
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,13 +16,10 @@ import java.util.List;
 import edu.umd.cs.queuelist.model.Student;
 import edu.umd.cs.queuelist.service.StudentService;
 
-import static android.app.Activity.RESULT_OK;
-
-public class StudentQueueFragment extends Fragment {
+public class InstructorQueueFragment extends Fragment {
 
 
-    private final int REQUEST_CODE_CREATE_STORY = 2;
-    private int resultCode;
+    private String course;
     private StudentService stuser;
     private View view;
     private RecyclerView recycle;
@@ -106,33 +98,17 @@ public class StudentQueueFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         stuser = DependencyFactory.getStudentService(getActivity().getApplicationContext());
-        setHasOptionsMenu(true);
         getActivity().setTitle(majorCourse.toUpperCase());
-    }
 
-    /*@Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater menuinflate) {
-        super.onCreateOptionsMenu(menu, menuinflate);
-        menuinflate.inflate(R.menu.fragment_studentqueue, menu);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuitem) {
-        switch(menuitem.getItemId()) {
-            case R.id.menu_item_create_student:
-                Intent intent3 = new Intent(getActivity().getApplicationContext(), StudentNameActivity.class);
-                startActivityForResult(intent3, REQUEST_CODE_CREATE_STORY);
-                onActivityResult(REQUEST_CODE_CREATE_STORY, resultCode, intent3);
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuitem);
-        }
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent getIntent = getActivity().getIntent();
+        majorCourse = getIntent.getStringExtra("Class");
         view = inflater.inflate(R.layout.fragment_studentqueue, container, false);
         recycle = (RecyclerView)view.findViewById(R.id.student_recycler_view);
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -144,72 +120,19 @@ public class StudentQueueFragment extends Fragment {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-        /*recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                if (recyclerView.SCROLL_STATE_DRAGGING == newState) {
-                    if (newState == 1) {
-                        Log.d("hello", "scrolling down");
-                        updateUI(majorCourse);
-                        Log.d("hello", "kappa");
-                    }
-                }
-            }
-        });*/
 
         updateUI(majorCourse);
 
         return view;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CODE_CREATE_STORY) {
-                Student aStudent = (Student)data.getSerializableExtra(StudentNameFragment.EXTRA_STUDENT_CREATED);
-                stuser.addStudentToQueue(aStudent);
-                int course = aStudent.getClassCodePosition();
-                switch (course) {
-                    case 0:
-                        majorCourse = "none";
-                        updateUI("none");
-                        break;
-                    case 1:
-                        majorCourse = "cmsc131";
-                        updateUI("cmsc131");
-                        break;
-                    case 2:
-                        majorCourse = "cmsc132";
-                        updateUI("cmsc132");
-                        break;
-                    case 3:
-                        majorCourse = "cmsc216";
-                        updateUI("cmsc216");
-                        break;
-                    default:
-                        majorCourse = "none";
-                        updateUI("none");
-                }
-
-            }
-        }
-    }
-
-    public static StudentQueueFragment newInstance() {
-        return new StudentQueueFragment();
+    public static InstructorQueueFragment newInstance() {
+        return new InstructorQueueFragment();
     }
 
     private void updateUI(String course) {
         List<Student> studentL = stuser.getAllStudents(course);
-        getActivity().setTitle(majorCourse.toUpperCase());
+        getActivity().setTitle(course.toUpperCase());
         if (studentA == null) {
             studentA = new StudentAdapter(studentL);
             recycle.setAdapter(studentA);

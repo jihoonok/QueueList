@@ -6,17 +6,21 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
-
-import static android.app.Activity.RESULT_CANCELED;
 
 /**
  * Created by jihoonok on 3/21/17.
  */
 
 public class InstructorLoginFragment extends android.support.v4.app.Fragment {
+    private Spinner classSpinner;
+    private Button submitButton;
+    private EditText username;
+    private EditText password;
     private View view;
     private Button loginButton, cancelButton;
     private EditText password, instructorid;
@@ -36,34 +40,59 @@ public class InstructorLoginFragment extends android.support.v4.app.Fragment {
         super.onCreate(savedInstanceState);
 
         view = inflater.inflate(R.layout.fragment_instructorlogin, container, false);
-        loginButton = (Button)view.findViewById(R.id.login_button);
-        cancelButton = (Button)view.findViewById(R.id.cancel_button);
-        password = (EditText)view.findViewById(R.id.password);
-        instructorid = (EditText)view.findViewById(R.id.instructor_id);
 
+        submitButton = (Button) view.findViewById(R.id.submit);
+        classSpinner = (Spinner)view.findViewById(R.id.spinner_class);
+        username = (EditText) view.findViewById(R.id.username);
+        password = (EditText) view.findViewById(R.id.password);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view1) {
-                Intent intent1 = getActivity().getIntent();
-                String instructorid_string = instructorid.getText().toString();
-                String password_string = password.getText().toString();
-                if (instructorid_string.equals("CMSC131") && password_string.equals("dennis")) {
-                    getActivity().setResult(RESULT_CANCELED, intent1);
-                    getActivity().finish();
+        ArrayAdapter<CharSequence> classAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.class_array, android.R.layout.simple_spinner_item);
+        classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        classSpinner.setAdapter(classAdapter);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                String user = username.getText().toString();
+                String pass = password.getText().toString();
+                String classCode = classSpinner.getSelectedItem().toString();
+
+                if (classCode.equalsIgnoreCase("CMSC131")) {
+                    if (user.equals("CMSC131") && pass.equals("sprcoredump")) {
+                        Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
+                        intent.putExtra("Course", "cmsc131");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect login information",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else if (classCode.equalsIgnoreCase("CMSC132")) {
+                    if (user.equals("CMSC132") && pass.equals("sprcoredump")) {
+                        Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
+                        intent.putExtra("Course", "cmsc132");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect login information",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else if (classCode.equalsIgnoreCase("CMSC216")) {
+                    if (user.equals("CMSC216") && pass.equals("sprcoredump")) {
+                        Intent intent = new Intent(getActivity(), InstructorViewActivity.class);
+                        intent.putExtra("Course", "cmsc216");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect login information",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                            "Wrong id and password combination", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getActivity(), "Incorrect login information",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view1) {
-                Intent intent1 = getActivity().getIntent();
-                getActivity().setResult(RESULT_CANCELED, intent1);
-                getActivity().finish();
-            }
-        });
+
 
         return view;
     }

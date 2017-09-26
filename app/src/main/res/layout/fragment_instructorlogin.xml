@@ -1,55 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="800px"
+        android:background="@drawable/umd"
+        android:alpha="0.2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="@string/instructor_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:layout_marginTop="41dp"
+        android:textSize="30dp"
         android:gravity="center"
-        android:layout_marginBottom="60dp"
-        android:textSize="40dp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:hint="@string/username"
+        android:maxLines="1"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:inputType = "textPassword"
+        android:hint="@string/password"/>
 
     <TextView
-        android:text="@string/user_id_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp" />
-    <EditText
-        android:hint="@string/user_id_hint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/instructor_id" />
-    <TextView
-        android:text="@string/password_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp" />
-    <EditText
-        android:hint="@string/password_hint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:id="@+id/password" />
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
+        android:text="@string/class_label"
+        android:textSize="20dp"
         android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:text="@string/log_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="40dp"
-            android:id="@+id/login_button" />
-        <Button
-            android:text="@string/cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cancel_button" />
-    </LinearLayout>
+        android:layout_below="@+id/password"
+        android:layout_alignStart="@+id/spinner_assignment"
+        android:layout_marginTop="34dp"
+        android:id="@+id/textView4"
+        android:layout_alignEnd="@+id/password" />
 
-</LinearLayout>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_class"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/password"
+        android:layout_alignEnd="@+id/password" />
+
+    <Button
+        android:id="@+id/submit"
+        android:text="@string/submit"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/spinner_class"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

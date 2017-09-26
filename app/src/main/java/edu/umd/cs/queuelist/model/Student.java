@@ -4,19 +4,24 @@ package edu.umd.cs.queuelist.model;
  * Created by khanhnguyen on 3/22/17.
  */
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Student implements Serializable {
     private String userid;
     private String name;
     private String problem;
     private ClassCode classCode = ClassCode.NONE;
-    private Assignment assignment = Assignment.NONE;
-    private Date timeCreated;
+    private String assignment = "Question";
+    private String timeCreated;
 
     public Student() {
-        timeCreated = new Date();
+
     }
 
     public String getUserId() {
@@ -82,54 +87,53 @@ public class Student implements Serializable {
         }
     }
 
-    public Assignment getAssignment() {
+    public String getAssignment() {
         return assignment;
     }
 
-    public int getAssignmentPosition() {
-        switch (assignment) {
-            case NONE:
-                return 0;
-            case PROJECT1:
-                return 1;
-            case PROJECT2:
-                return 2;
-            case PROJECT3:
-                return 3;
-            default:
-                return 0;
-        }
+
+    public void setAssignment(String assignment) {
+        this.assignment = assignment;
     }
 
-    public void setAssignment(int position) {
-        switch (position) {
-            case 0:
-                this.assignment = Assignment.NONE;
-                break;
-            case 1:
-                this.assignment = Assignment.PROJECT1;
-                break;
-            case 2:
-                this.assignment = Assignment.PROJECT2;
-                break;
-            case 3:
-                this.assignment = Assignment.PROJECT3;
-                break;
-            default:
-                this.assignment = Assignment.NONE;
-                break;
-        }
-    }
+    public void setTimeCreated(String date) {
 
-    public Date getTimeCreated() {
-        return timeCreated;
+        /*String[] dateTime;
+        String year,month,day,hour,minute,seconds;
+        String[] date2;
+        String[] time;
+        dateTime = date.split(" ");
+        date2 = dateTime[0].split("-");
+        time = dateTime[1].split(":");
+
+        Timestamp tm = new Timestamp(Integer.parseInt(date2[0]), Integer.parseInt(date2[1]), Integer.parseInt(date2[2]),
+                Integer.parseInt(time[0]), Integer.parseInt(time[1]), Integer.parseInt(time[2]), 00);*/
+
+        DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date23=null;
+
+        try {
+            date23 = utcFormat.parse(date);
+        }catch(Exception e){
+            Log.d("Debug", "Time error");
+        }
+        DateFormat estFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        estFormat.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+
+        Log.d("Debug", estFormat.format(date23));
+
+        this.timeCreated = estFormat.format(date23) + " EST";
+
+
     }
 
     @Override
     public String toString() {
         int displayLength = 10;
-        return name.substring(0, name.length() >= displayLength ? displayLength : name.length()) +
-                " : " + userid + " : " + classCode + " : " + assignment;
+        return "Assignment: " + assignment + "\n"
+                + "Inserted in Queue: " + timeCreated + "\n"
+                + "Directory ID: " + userid;
     }
 
     public enum ClassCode {

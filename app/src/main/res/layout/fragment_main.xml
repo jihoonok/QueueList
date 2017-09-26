@@ -1,46 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGray">
 
-    <TextView
-        android:text="@string/welcome"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:layout_marginTop="42dp"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="1000px"
+        android:background="@drawable/umd"
+        android:alpha="0.6"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:id="@+id/imageView2" />
+
+
+    <ImageButton
+        android:background="@drawable/untitled2"
+        android:layout_width="250px"
+        android:layout_height="280px"
+        android:layout_marginTop="30dp"
+        android:id="@+id/student"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginStart="19dp" />
+
+    <ImageButton
+        android:background="@drawable/untitled3"
+        android:layout_width="250px"
+        android:layout_height="280px"
+        android:id="@+id/instructor"
+        android:layout_alignTop="@+id/student"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginEnd="16dp" />
 
     <TextView
         android:text="@string/getting_started"
-        android:textSize="24sp"
-        android:layout_width="210dp"
+        android:textSize="17sp"
+        android:textAlignment="center"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="30dp"
+        android:typeface="monospace"
         android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
+        android:textStyle="bold"
+        android:textColor="@color/darkWhite"
+        android:layout_below="@+id/imageView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_alignStart="@id/textView"/>
+
+    <TextView
+        android:text="@string/welcome"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:gravity="center"
+        android:layout_marginTop="42dp"
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:textColor="@color/darkWhite"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="@string/students"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:id="@+id/student"
-        android:layout_below="@+id/textView2"
+    <ImageView
+        android:layout_width="250px"
+        android:layout_height="280px"
+        android:background="@drawable/terp3"
+        android:id="@+id/imageView"
+        android:layout_marginTop="26dp"
+        android:layout_alignTop="@+id/imageView2"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="@string/instructors"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:id="@+id/instructor"
-        android:layout_below="@+id/student"
-        android:layout_alignStart="@+id/student" />
 
 
 </RelativeLayout>

@@ -6,7 +6,7 @@ import java.util.List;
 import edu.umd.cs.queuelist.model.Student;
 
 public interface StudentService {
-    public void addStudentToQueue(Student student);
-    public Student getStudentById(String id);
-    public List<Student> getAllStudents();
+    void addStudentToQueue(Student student);
+    Student getStudentById(String id);
+    List<Student> getAllStudents(String course);
 }

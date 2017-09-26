@@ -1,16 +1,15 @@
 <resources>
     <string name="app_name">QueueList</string>
-    <string name="welcome">Welcome to the QueueList App</string>
-    <string name="getting_started">Click which one you are to get started</string>
+    <string name="welcome">QueueList</string>
+    <string name="getting_started">Click which one you are to get started.</string>
     <string name="students">Students</string>
     <string name="instructors">Instructors</string>
     <string name="student_name_label">Student Name</string>
     <string name="student_name_hint">Enter your name here</string>
-    <string name="instructor_label">Instructor</string>
-    <string name="user_id_label">User ID</string>
-    <string name="user_id_hint">Enter your user id here</string>
-    <string name="password_label">Password</string>
-    <string name="password_hint">Enter your password here</string>
+
+    <string name="user_cell_label">Cell Number</string>
+    <string name="user_cell_hint">Enter your Cell number here</string>
+
     <string name="class_label">Class</string>
     <string name="assignment_label">Assigment</string>
     <string name="problem_label">Problem</string>
@@ -30,4 +29,15 @@
         <item>Project2</item>
         <item>Project3</item>
     </string-array>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="submit">Submit</string>
+    <string name="next">Next Student</string>
+    <string name="next_student">Click next student button to get the next student that needs help</string>
+    <string name="Refresh">refresh</string>
+    <string name="addProject">Add Project</string>
+    <string name="enterProjectName">Enter Project Name</string>
+    <string name="title_student_list">Students</string>
+    <string name="title_student_detail">Student Detail</string>
 </resources>
